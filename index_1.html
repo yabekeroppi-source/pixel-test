@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pixel動作テスト｜LINE登録ボタン</title>
+
+<!-- ======================================================
+     Meta Pixel ベースコード（検証用ピクセル: アドマーケターあべのピクセル）
+     ID: 1390053539367001
+     ※別のピクセルで試す場合は、下の2箇所のIDを差し替え
+====================================================== -->
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1390053539367001');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1390053539367001&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<style>
+  body { font-family: "Hiragino Sans", "Yu Gothic", sans-serif; margin: 0; background: #f7f8fa; color: #333; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 40px 20px 80px; }
+  h1 { font-size: 22px; }
+  h2 { font-size: 16px; margin-top: 48px; border-left: 4px solid #2e5c9a; padding-left: 10px; }
+  p { font-size: 14px; line-height: 1.8; }
+  .note { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 14px 16px; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Meta Pixel 動作テストページ</h1>
+  <p>UltraHub案件の事前検証用。ページを開いた時点で PageView が送信されます。</p>
+
+  <h2>ボタンA（方法A相当：ただのリンクボタン・計測コードなし）</h2>
+  <p>イベント設定ツールでの「新しいボタンをトラッキング」→ Lead紐づけの練習用。</p>
+  <div style="text-align:center; margin:24px 0;">
+    <a href="https://lin.ee/ZJgGVm7"
+       style="display:inline-block; background:#06C755; color:#ffffff;
+              font-size:18px; font-weight:bold; text-decoration:none;
+              padding:16px 48px; border-radius:40px;
+              box-shadow:0 4px 12px rgba(6,199,85,.35);">
+      LINEで友だち追加する（A）
+    </a>
+  </div>
+
+  <h2>ボタンB（方法B：クリックで Lead を送信するコード入り）</h2>
+  <p>クリックすると fbq('track', 'Lead') を送信してから LINE に遷移します。</p>
+  <!-- UltraHub LINE登録ボタン（Lead計測付き） -->
+  <div style="text-align:center; margin:24px 0;">
+    <a href="https://lin.ee/ZJgGVm7"
+       id="uh-line-btn"
+       style="display:inline-block; background:#06C755; color:#ffffff;
+              font-size:18px; font-weight:bold; text-decoration:none;
+              padding:16px 48px; border-radius:40px;
+              box-shadow:0 4px 12px rgba(6,199,85,.35);">
+      LINEで友だち追加する（B）
+    </a>
+  </div>
+  <script>
+  document.getElementById('uh-line-btn').addEventListener('click', function (e) {
+    if (typeof fbq !== 'function') return;
+    e.preventDefault();
+    fbq('track', 'Lead');
+    var url = this.href;
+    setTimeout(function () { window.location.href = url; }, 300);
+  });
+  </script>
+
+  <div class="note">
+    確認手順：イベントマネージャ →「アドマーケターあべのピクセル」→「テストイベント」→ このページの公開URLを入力 → ページが開いたら PageView を確認 → ボタンBをクリック → Lead が届けば成功。ボタンAはイベント設定ツールで Lead を紐づけてから同様に確認。LINEのリンク先は阿部の公式LINE（lin.ee/ZJgGVm7）に設定済み。本番のペライチではUltraHubのURL（lin.ee/ofQ0LnW）を使う。
+  </div>
+</div>
+</body>
+</html>
